@@ -12,18 +12,6 @@ export default function MyApp({ Component, pageProps }) {
 
     return (
         <>
-        {/*
-        <DefaultSeo
-            
-            title="Avery Felman"
-            description="Freelance Writer In New York City"
-            openGraph={{
-                type: 'website',
-                locale: 'en_US',
-                url: 'https://averyfelman.com/',
-                site_name: 'Avery Felman',
-            }}
-        />*/}
         <Component {...pageProps} />
         </>
     )
