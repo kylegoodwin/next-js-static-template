@@ -8,8 +8,25 @@ on:
     branches: [ master ]
 
 jobs:
+  #Help From https://github.com/GabLeRoux/github-actions-examples/blob/e0468ce2731b08bd8b1f7cd09d0b94c541310693/.github/workflows/secret_based_conditions.yml
+  checksecrets: 
+    name: check if netlify secrets are defined
+    runs-on: ubuntu-latest
+    outputs:
+      are_secrets_set: ${{ steps.checksecret_job.outputs.are_secrets_set }}
+    steps:
+      - name: Check whether unity activation requests should be done
+        id: checksecret_job
+        env:
+            NETLIFY_SITE_ID: ${{ secrets.SITE_ID }}
+            NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_KEY }}
+        run: |
+            echo " NETLIFY_SITE_ID & NETLIFY_AUTH_TOKEN are set: ${{ env.MY_NETLIFY_AUTH_TOKEN != '' && env.NETLIFY_SITE_ID != '' }}"
+            echo "::set-output name=are_secrets_set::${{ env.MY_NETLIFY_AUTH_TOKEN != '' && env.NETLIFY_SITE_ID != '' }}"
+
   build-and-deploy:
-    if: ${{secrets.SITE_ID}} != '' && ${{ secrets.NETLIFY_KEY }} != ''
+    needs: [checksecrets]
+    if: needs.checksecret.outputs.are_secrets_set == 'true'
     name: Build and Deploy
     runs-on: ubuntu-latest
     timeout-minutes: 5
