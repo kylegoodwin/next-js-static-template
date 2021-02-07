@@ -15,7 +15,7 @@ jobs:
     outputs:
       are_secrets_set: ${{ steps.checksecret_job.outputs.are_secrets_set }}
     steps:
-      - name: Check whether unity activation requests should be done
+      - name: Decide whether to run the build and deploy action
         id: checksecret_job
         env:
             NETLIFY_SITE_ID: ${{ secrets.SITE_ID }}
