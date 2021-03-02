@@ -21,8 +21,9 @@ jobs:
             NETLIFY_SITE_ID: ${{ secrets.SITE_ID }}
             NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_KEY }}
         run: |
-            echo " NETLIFY_SITE_ID & NETLIFY_AUTH_TOKEN are set: ${{ env.MY_NETLIFY_AUTH_TOKEN != '' && env.NETLIFY_SITE_ID != '' }}"
-            echo "::set-output name=are_secrets_set::${{ env.MY_NETLIFY_AUTH_TOKEN != '' && env.NETLIFY_SITE_ID != '' }}"
+            echo "auth token: ${{ env.NETLIFY_AUTH_TOKEN != ''}} site id: ${{env.NETLIFY_SITE_ID != ''}} "
+            echo " NETLIFY_SITE_ID & NETLIFY_AUTH_TOKEN are set: ${{ env.NETLIFY_AUTH_TOKEN != '' && env.NETLIFY_SITE_ID != '' }}"
+            echo "::set-output name=are_secrets_set::${{ env.NETLIFY_AUTH_TOKEN != '' && env.NETLIFY_SITE_ID != '' }}"
 
   build-and-deploy:
     needs: [checksecrets]
