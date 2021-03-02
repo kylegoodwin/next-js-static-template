@@ -21,3 +21,7 @@ Development Mode
 Export Static Site Locally
 
     npm run build; npm run export
+
+
+## Notes:
+[Styled-Components Issues](https://dev.to/aprietof/nextjs--styled-components-the-really-simple-guide----101c)
