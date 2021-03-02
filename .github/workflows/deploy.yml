@@ -13,10 +13,10 @@ jobs:
     name: check if netlify secrets are defined
     runs-on: ubuntu-latest
     outputs:
-      are_secrets_set: ${{ steps.checksecret_job.outputs.are_secrets_set }}
+      are_secrets_set: ${{ steps.checksecrets_job.outputs.are_secrets_set }}
     steps:
       - name: Decide whether to run the build and deploy action
-        id: checksecret_job
+        id: checksecrets_job
         env:
             NETLIFY_SITE_ID: ${{ secrets.SITE_ID }}
             NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_KEY }}
@@ -27,7 +27,7 @@ jobs:
 
   build-and-deploy:
     needs: [checksecrets]
-    if: needs.checksecret.outputs.are_secrets_set == 'true'
+    if: needs.checksecrets.outputs.are_secrets_set == 'true'
     name: Build and Deploy
     runs-on: ubuntu-latest
     timeout-minutes: 5
